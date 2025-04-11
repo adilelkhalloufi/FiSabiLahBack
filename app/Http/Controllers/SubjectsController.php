@@ -39,8 +39,9 @@ class SubjectsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Subjects $subjects)
+    public function show(  $id)
     {
+        $subjects = Subjects::find($id);
         // whant bring with the vedio the subject to
         $subjects = Subjects::with(['videos' => function ($query) {
             $query->with('chikhi');
@@ -54,8 +55,9 @@ class SubjectsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subjects $subjects)
+    public function update(Request $request,  $id)
     {
+        $subjects = Subjects::find($id);
         $subjects->name = $request->input('name');
         $subjects->description = $request->input('description');
         $subjects->save();
@@ -66,8 +68,10 @@ class SubjectsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Subjects $subjects)
+    public function destroy(  $id)
     {
+        $subjects = Subjects::find($id);
+        
         $subjects->delete();
 
         return response()->json(null, 204);

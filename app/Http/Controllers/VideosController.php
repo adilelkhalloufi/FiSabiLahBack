@@ -12,8 +12,13 @@ class VideosController extends Controller
      */
     public function index()
     {
-        //
-    }
+        // whant bring with the vedio the subject to
+        $videos = Videos::with(['subjects' => function ($query) {
+            $query->with('chikhi');
+        }])->get();
+
+        return response()->json($videos);
+     }
 
     /**
      * Show the form for creating a new resource.
