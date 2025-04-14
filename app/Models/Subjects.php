@@ -20,5 +20,12 @@ class Subjects extends Model
         return $this->hasMany(Videos::class, Videos::COL_SUBJECT_ID, self::COL_ID);
     }
 
-    //
+    /**
+     * Get the chikhi associated with the subject.
+     */
+    public function chikhi()
+    {
+        return $this->belongsTo(Chikhis::class, 'chikhi_id', Chikhis::COL_ID);
+    }
+
 }

@@ -33,15 +33,30 @@ class VideosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+       
+
+        $video = Videos::create($request->all());
+
+        return response()->json($video, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Videos $videos)
+    public function show($id)
     {
-        //
+        
+        $video = Videos::with(['subjects' => function ($query) {
+            $query->with('chikhi');
+        }])->find($id);
+
+        if (!$video) {
+            return response()->json(['message' => 'Video not found'], 404);
+        }
+
+        return response()->json($video);
+
     }
 
     /**
@@ -49,22 +64,42 @@ class VideosController extends Controller
      */
     public function edit(Videos $videos)
     {
-        //
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Videos $videos)
+    public function update(Request $request,$id)
     {
-        //
+        
+     
+
+        $video = Videos::find($id);
+
+        if (!$video) {
+            return response()->json(['message' => 'Video not found'], 404);
+        }
+
+        $video->update($request->all());
+
+        return response()->json($video);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Videos $videos)
+    public function destroy( $id)
     {
-        //
+        
+        $video = Videos::find($id);
+
+        if (!$video) {
+            return response()->json(['message' => 'Video not found'], 404);
+        }
+
+        $video->delete();
+
+        return response()->json(['message' => 'Video deleted successfully']);
     }
 }
