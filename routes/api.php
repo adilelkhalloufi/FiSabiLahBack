@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChikhisController;
 use App\Http\Controllers\SubjectsController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\VideosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,7 @@ Route::get('/user', function (Request $request) {
 Route::resource('chikhis', ChikhisController::class);
 Route::resource('subjects', SubjectsController::class);
 Route::resource('videos', VideosController::class);
+Route::resource('tags', TagController::class);
 
 
 
